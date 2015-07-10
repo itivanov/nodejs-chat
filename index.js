@@ -41,12 +41,16 @@ io.on('connection', function (socket) {
     try {
         main.connection(socket);
 
+        socket.on('disconnect', function () {
+            main.disconnect(socket);
+        });
+
         socket.on('name', function (data) {
             main.name(socket, data);
         });
 
     } catch (e) {
-        console.log('Exception : ' + e.message);
+        console.log('Exception : %s', e.message);
         console.log(e.stack);
     }
 
